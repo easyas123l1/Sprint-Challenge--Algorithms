@@ -95,9 +95,46 @@ class SortingRobot:
     def sort(self):
         """
         Sort the robot's list.
+        this robot is pretty basic and can only move left or right and 
+        that alone makes me think bubble sort is best option as it is going
+        left and right.  I think the light can be used to let us know when a 
+        swap happens so we know to keep on looping thru like you would with bubble sort.
+        With bubble sort first pass we should have largest # at the end and slowly we 
+        should see this get ordered correctly.  
         """
-        # Fill this out
-        pass
+        #print('this is self.list', self._list)
+        #to get started we will turn the light on the robot to enter while loop
+        self.set_light_on()
+        # while light is on bubble sort
+        while self.light_is_on():
+            # first step turn light off meaning no changes made this pass
+            self.set_light_off()
+            # while we can move right keep sorting!
+            while self.can_move_right():
+                # pick up the first item
+                self.swap_item()
+                #move right to compare
+                self.move_right()
+                # compare items.  if returns 1 robot is holding bigger #
+                if self.compare_item() == 1:
+                    # larger # so we must swap
+                    self.swap_item()
+                    # swap happened turn light on
+                    self.set_light_on()
+                # now we need to move the smaller # to left (swapped or not)
+                self.move_left()
+                # drop item in first compared location
+                self.swap_item()
+                # move to the next location for next loop
+                self.move_right()
+            # move back to beggining if light is on.
+            if self.light_is_on():
+                #while we can move left... move left
+                while self.can_move_left():
+                    self.move_left()
+
+
+        
 
 
 if __name__ == "__main__":
